@@ -6,7 +6,13 @@ number = [[1,2,4,5,],
     for num in row:
         print(num,end= ' ')
     print()'''
-for i in range(0,3):
+'''for i in range(0,3):
     for j in range(0,3):
         print(number[i][j],end = ' ') 
-    print()
+    print()'''
+
+for i in range(3):
+    print(number[i][i])
+
+for row in number:
+    print(row[0])
