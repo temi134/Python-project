@@ -48,9 +48,3 @@ while True:
     circle1.update()
 
     pygame.display.update()
-
-
-
-
-
-
