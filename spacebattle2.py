@@ -1,9 +1,13 @@
 import pygame
+import time
 pygame.init()
 
 screen = pygame.display.set_mode((800,560))
 
 spacebg = pygame.image.load('images/spacebg.jpg')
+
+font1 = pygame.font.SysFont('Arial',30) 
+font2 = pygame.font.SysFont('Arial',100)
 
 class Spacecraft(pygame.sprite.Sprite):
     def __init__(self , x, y):
@@ -12,13 +16,17 @@ class Spacecraft(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = [x,y]
         self.last_shot = pygame.time.get_ticks()
-        self.lives = 3
+        self.lives2 = 3
+        
 
     
 
 
     def update(self):
         key = pygame.key.get_pressed()
+
+        text = font1.render('lives:'+str(self.lives2),True,(255,255,255))  
+        screen.blit(text,(720,50))
 
 
         if key[pygame.K_RIGHT]:
@@ -35,7 +43,8 @@ class Spacecraft(pygame.sprite.Sprite):
             self.last_shot  = current_time
 
         if pygame.sprite.spritecollide(self,bullet_group2,True):
-            self.lives -=  1
+            self.lives2 -=  1
+
 
 
         
@@ -52,15 +61,21 @@ class Spacecraft2(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = [x,y]
         self.last_shot = pygame.time.get_ticks()
+        self.lives = 3
 
     def update(self):
         key = pygame.key.get_pressed()
+        text2 = font1.render('lives:'+str(self.lives),True,(255,255,255))
+        screen.blit(text2,(720,520))
 
         if key[pygame.K_d]:
                 self.rect.x += 1
 
         if key[pygame.K_a]:
                 self.rect.x -= 1
+
+        if pygame.sprite.spritecollide(self,bullet_group1,True):
+                self.lives -=  1
 
         current_time = pygame.time.get_ticks()
 
@@ -113,7 +128,20 @@ while True:
 
         if event.type == pygame.QUIT:
             pygame.quit()
-            quit()
+            
+
+    if space2.lives <= 0:
+         text3 = font2.render('Player2 wins',True,(255,255,255))
+         screen.blit(text3,(150,200))
+         pygame.display.update()
+         time.sleep(3)
+         pygame.quit()
+    if space1.lives2 <= 0:
+         text4 = font2.render('Player1 wins',True,(255,255,255))
+         screen.blit(text4,(150,200))
+         pygame.display.update()
+         time.sleep(3)
+         pygame.quit
 
     pygame.display.update()
 
